@@ -2,21 +2,14 @@ package com.shantanu.example.backgroundtask;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.ResultReceiver;
-import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,7 +18,7 @@ import static com.shantanu.example.backgroundtask.MainActivity.IMAGE_PATH;
 import static com.shantanu.example.backgroundtask.MainActivity.IMAGE_URL;
 
 public class MyIntentService extends IntentService implements NetworkCheckReceiver.IOnNetworkConnected {
-    ResultReceiver resultReceiver;
+    ResultReceiver resultReceiver1;
     NetworkCheckReceiver networkReceiver;
 
     public MyIntentService() {
@@ -34,7 +27,7 @@ public class MyIntentService extends IntentService implements NetworkCheckReceiv
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        resultReceiver = intent.getParcelableExtra("receiver");
+        resultReceiver1 = intent.getParcelableExtra("receiver");
         networkReceiver = new NetworkCheckReceiver((NetworkCheckReceiver.IOnNetworkConnected) this);
         downloadImage();
     }
@@ -56,7 +49,7 @@ public class MyIntentService extends IntentService implements NetworkCheckReceiv
                 } else if (totalSizeOfImageDownloaded == totalSizeOfImage) {
                     Bundle bundle = new Bundle();
                     bundle.putInt("progress", 100);
-                    resultReceiver.send(101, bundle);
+                    resultReceiver1.send(101, bundle);
                     return;
                 }
             } else {
@@ -74,7 +67,7 @@ public class MyIntentService extends IntentService implements NetworkCheckReceiv
                 int progress = (int) ((totalSizeOfImageDownloaded * 100) / totalSizeOfImage);
                 Bundle bundle = new Bundle();
                 bundle.putInt("progress", progress);
-                resultReceiver.send(101, bundle);
+                resultReceiver1.send(101, bundle);
                 fos.write(image_buffer, 0, count);
             }
 

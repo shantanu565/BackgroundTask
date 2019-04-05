@@ -18,8 +18,8 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity  implements MyAsyncTask.IOnProgressReceived, NetworkCheckReceiver.IOnNetworkConnected, ProgressHandler.IOnResultProgressReceived{
     ImageView imageView;
     Button btnAsync,btnService,btnClear;
-    static final String IMAGE_URL="https://i.stack.imgur.com/7vMmx.jpg";
-    static final String IMAGE_PATH = "/data/data/com.shantanu.example.backgroundtask/example.jpg";
+    static final String IMAGE_URL="https://homepages.cae.wisc.edu/~ece533/images/airplane.png";
+    static final String IMAGE_PATH = "/data/data/com.shantanu.example.backgroundtask/example1.jpg";
     MyAsyncTask mAsyncTaskExample;
     ProgressBar progressBar;
     TextView txtProgrss;
@@ -63,9 +63,9 @@ public class MainActivity extends AppCompatActivity  implements MyAsyncTask.IOnP
                 disableAllButtons();
                 if (isConnected) {
                     serviceIntent = new Intent(MainActivity.this, MyIntentService.class);
-                    ProgressHandler resultHandler = new ProgressHandler((new Handler()));
+                    ProgressHandler resultHandler = new ProgressHandler(new Handler());
                     resultHandler.setmOnProgressReceived(v.getContext());
-                    serviceIntent.putExtra("receiver", resultHandler);
+                    serviceIntent.putExtra("receiver",resultHandler);
                     serviceStarted = true;
                     startService(serviceIntent);
                 } else {

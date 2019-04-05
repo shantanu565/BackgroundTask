@@ -10,6 +10,9 @@ public class NetworkCheckReceiver extends BroadcastReceiver {
     ConnectivityManager connectivityManager;
     IOnNetworkConnected networkConnected;
 
+    public NetworkCheckReceiver(){
+
+    }
     public NetworkCheckReceiver(IOnNetworkConnected networkConnected) {
         this.networkConnected = networkConnected;
     }
